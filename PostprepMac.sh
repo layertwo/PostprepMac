@@ -2,7 +2,7 @@
 # ----------------------------------------------
 # Script is designed to be Postprep equivalent on Mac.
 # author: Lucas Messenger
-# version: 0.1.2
+# version: 0.1.3
 # created: 02_24_2014
 # modified: 04_09_2014
 #
@@ -46,6 +46,7 @@ curl --progress-bar -L -o Java.dmg "http://javadl.sun.com/webapps/download/AutoD
 sleep 1
 echo "Installers downloaded.\n"
 sleep 1
+clear
 
 # Mount downloaded installers
 echo "Mounting installers..."
@@ -55,6 +56,7 @@ do
 	echo "$DMG is mounted."
 done
 sleep 1
+echo "\n"
 echo "Installers are mounted.\n"
 sleep 1
 clear
@@ -75,9 +77,9 @@ SLVRPKG=$(find "$SLVR" -name '*Silverlight*.pkg')
 JAVAPKG=$(find "$JAVA" -name '*Java*.pkg')
 
 # Install from mounted volumes
-echo "postprep: installing Firefox..."
+echo "Installing Firefox..."
 cp -R /Volumes/Firefox/Firefox.app /Applications
-echo "postprep: Firefox installed."
+echo "Firefox installed."
 /Volumes/Adobe\ Flash\ Player\ Installer/Install\ Adobe\ Flash\ Player.app/Contents/MacOS/Install\ Adobe\ Flash\ Player
 /Volumes/Adobe\ Reader\ Installer/Install\ Adobe\ Reader.app/Contents/MacOS/Install\ Adobe\ Reader
 /Volumes/Adobe\ AIR/Adobe\ AIR\ Installer.app/Contents/MacOS/Adobe\ AIR\ Installer
@@ -89,6 +91,7 @@ sleep 1
 VOLNAMES=( "$FLSH" "$RDR" "$AIR" "$FRFX" "$SHKWV" "$SLVR" "$JAVA" )
 
 # Unmount installers
+clear
 echo "Unmounting installers..."
 for VOL in "${VOLNAMES[@]}"
 do
