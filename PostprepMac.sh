@@ -2,7 +2,7 @@
 # ----------------------------------------------
 # Script is designed to be Postprep equivalent on Mac.
 # author: Lucas Messenger
-# version: 0.1.1
+# version: 0.1.2
 # created: 02_24_2014
 # modified: 02_26_2014
 #
@@ -17,15 +17,15 @@
 dmgNames=( "Flash.dmg" "Reader.dmg" "AIR.dmg" "Shockwave.dmg" "Silverlight.dmg" "Firefox.dmg" "Java.dmg" )
 volNames=( "Adobe Flash Player Installer" "Adobe Reader Installer" "Adobe AIR" "Adobe Shockwave 12" "Silverlight" "Firefox" "Java 7 Update 51" )
 
-mkdir ~/postprep_temp
-cd ~/postprep_temp
-
 clear
 uid=$(id -u) #check to see if running in root
 if [ "$uid" != "0" ]; then
 	echo -e "Postprep for Mac must be run as root user. Please try again."
 	exit
 fi
+
+mkdir ~/postprep_temp
+cd ~/postprep_temp
 
 # Get Flash, Reader, AIR, and Shockwave, Silverlight, and Firefox with curl
 echo "Downloading installers...\n"
