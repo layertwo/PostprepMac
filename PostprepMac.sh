@@ -2,7 +2,7 @@
 # ----------------------------------------------
 # Script is designed to be Postprep equivalent on Mac.
 # author: Lucas Messenger
-# version: 0.1.3
+# version: 0.1.2
 # created: 02_24_2014
 # modified: 04_09_2014
 #
