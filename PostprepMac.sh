@@ -27,23 +27,23 @@ fi
 mkdir ~/postprep_temp
 cd ~/postprep_temp
 
-# Get Flash, Reader, AIR, and Shockwave, Silverlight, and Firefox with curl
+# Get Flash, Reader, AIR, and Shockwave, Silverlight, and Firefox with curl and progress bar
 echo "Downloading installers...\n"
-curl -s -o Flash.dmg http://aihdownload.adobe.com/bin/live/AdobeFlashPlayerInstaller_12_ltrosxd_aaa_aih.dmg
-echo "Adobe Flash Player done."
-curl -s -o Reader.dmg http://aihdownload.adobe.com/bin/live/AdobeReaderInstaller_11_en_ltrosxd_aaa_aih.dmg
-echo "Adobe Reader done."
-curl -s -o AIR.dmg http://airdownload.adobe.com/air/mac/download/latest/AdobeAIR.dmg
-echo "Adobe AIR done."
-curl -s -o Shockwave.dmg http://fpdownload.macromedia.com/get/shockwave/default/english/macosx/latest/Shockwave_Installer_Full_64bit.dmg
-echo "Adobe Shockwave done."
-curl -s -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Safari/537.36" \
+echo "Downloading Adobe Flash Player..."
+curl --progress-bar -o Flash.dmg http://aihdownload.adobe.com/bin/live/AdobeFlashPlayerInstaller_12_ltrosxd_aaa_aih.dmg
+echo "Downloading Adobe Reader..."
+curl --progress-bar -o Reader.dmg http://aihdownload.adobe.com/bin/live/AdobeReaderInstaller_11_en_ltrosxd_aaa_aih.dmg
+echo "Downloading Adobe AIR..."
+curl --progress-bar -o AIR.dmg http://airdownload.adobe.com/air/mac/download/latest/AdobeAIR.dmg
+echo "Downloading Adobe Shockwave..."
+curl --progress-bar -o Shockwave.dmg http://fpdownload.macromedia.com/get/shockwave/default/english/macosx/latest/Shockwave_Installer_Full_64bit.dmg
+echo "Downloading Microsoft Silverlight..."
+curl --progress-bar -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Safari/537.36" \
     -Lo Silverlight.dmg http://www.microsoft.com/getsilverlight/handlers/getsilverlight.ashx
-echo "Microsoft Silverlight done."
-curl -s -L -o Firefox.dmg "http://download.mozilla.org/?product=firefox-latest&os=osx&lang=en-US"
-echo "Mozilla Firefox done."
-curl -s -L -o Java.dmg "http://javadl.sun.com/webapps/download/AutoDL?BundleId=83377"
-echo "Java done."
+echo "Downloading Mozilla Firefox..."
+curl --progress-bar -L -o Firefox.dmg "http://download.mozilla.org/?product=firefox-latest&os=osx&lang=en-US"
+echo "Downloading Java..."
+curl --progress-bar -L -o Java.dmg "http://javadl.sun.com/webapps/download/AutoDL?BundleId=83377"
 sleep 1
 echo "Installers downloaded.\n"
 sleep 1
