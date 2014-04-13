@@ -2,19 +2,17 @@
 # ----------------------------------------------
 # Script is designed to be Postprep equivalent on Mac.
 # author: Lucas Messenger
-# version: 0.1.2
+# version: 0.1.3
 # created: 02_24_2014
-# modified: 04_09_2014
+# modified: 04_13_2014
 #
 #
 # Notes:
 # ----------------------------------------------
 # Flash Player has better link:
-# http://fpdownload.macromedia.com/get/flashplayer/current/licensing/mac/install_flash_player_12_osx_pkg.dmg
+# http://fpdownload.macromedia.com/get/flashplayer/current/licensing/mac/install_flash_player_13_osx_pkg.dmg
 # But requires Adobe distribution license (looks like it's free)
 #
-
-DMGNAMES=( "Flash.dmg" "Reader.dmg" "AIR.dmg" "Shockwave.dmg" "Silverlight.dmg" "Firefox.dmg" "Java.dmg" )
 
 clear
 uid=$(id -u) #check to see if running in root
@@ -26,18 +24,34 @@ fi
 mkdir ~/postprep_temp
 cd ~/postprep_temp
 
+
+# Check to see if there are newer versions of programs available by checking links + 1.
+FLSHVER="13"
+RDRVER="11"
+updateVer=false
+
 # Get Flash, Reader, AIR, and Shockwave, Silverlight, and Firefox with curl and progress bar
 echo "Downloading installers...\n"
 echo "(1/7) Downloading Adobe Flash Player..."
-curl --progress-bar -o Flash.dmg http://aihdownload.adobe.com/bin/live/AdobeFlashPlayerInstaller_13_ltrosxd_aaa_aih.dmg
+if curl -o /dev/null -s --head --fail http://aihdownload.adobe.com/bin/live/AdobeFlashPlayerInstaller_"$FLSHVER+1"_ltrosxd_aaa_aih.dmg; then
+  updateVer=true
+  curl --progress-bar -o Flash.dmg http://aihdownload.adobe.com/bin/live/AdobeFlashPlayerInstaller_"$FLSHVER+1"_ltrosxd_aaa_aih.dmg
+else
+  curl --progress-bar -o Flash.dmg http://aihdownload.adobe.com/bin/live/AdobeFlashPlayerInstaller_"$FLSHVER"_ltrosxd_aaa_aih.dmg
+fi
 echo "(2/7) Downloading Adobe Reader..."
-curl --progress-bar -o Reader.dmg http://aihdownload.adobe.com/bin/live/AdobeReaderInstaller_11_en_ltrosxd_aaa_aih.dmg
+if curl -o /dev/null -s --head --fail http://aihdownload.adobe.com/bin/live/AdobeReaderInstaller_"$RDRVER+1"_en_ltrosxd_aaa_aih.dmg; then
+  updateVer=true
+  curl --progress-bar -o Reader.dmg http://aihdownload.adobe.com/bin/live/AdobeReaderInstaller_"$RDRVER+1"_en_ltrosxd_aaa_aih.dmg
+else
+  curl --progress-bar -o Reader.dmg http://aihdownload.adobe.com/bin/live/AdobeReaderInstaller_"$RDRVER"_en_ltrosxd_aaa_aih.dmg
+fi
 echo "(3/7) Downloading Adobe AIR..."
 curl --progress-bar -o AIR.dmg http://airdownload.adobe.com/air/mac/download/latest/AdobeAIR.dmg
 echo "(4/7) Downloading Adobe Shockwave..."
 curl --progress-bar -o Shockwave.dmg http://fpdownload.macromedia.com/get/shockwave/default/english/macosx/latest/Shockwave_Installer_Full_64bit.dmg
 echo "(5/7) Downloading Microsoft Silverlight..."
-curl --progress-bar -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Safari/537.36" \
+curl --progress-bar -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Safari/537.36" \
     -Lo Silverlight.dmg http://www.microsoft.com/getsilverlight/handlers/getsilverlight.ashx
 echo "(6/7) Downloading Mozilla Firefox..."
 curl --progress-bar -L -o Firefox.dmg "http://download.mozilla.org/?product=firefox-latest&os=osx&lang=en-US"
@@ -49,6 +63,7 @@ sleep 1
 clear
 
 # Mount downloaded installers
+DMGNAMES=( "Flash.dmg" "Reader.dmg" "AIR.dmg" "Shockwave.dmg" "Silverlight.dmg" "Firefox.dmg" "Java.dmg" )
 echo "Mounting installers..."
 for DMG in "${DMGNAMES[@]}"
 do
@@ -71,7 +86,7 @@ SHKWV=$(find /Volumes -type d -name "*Shockwave*" -maxdepth 1)
 SLVR=$(find /Volumes -type d -name "*Silverlight*" -maxdepth 1)
 JAVA=$(find /Volumes -type d -name "*Java*" -maxdepth 1)
 
-# Get .pkg location for folder that have it
+# Get .pkg location for folders that have it
 SHKWVPKG=$(find "$SHKWV" -name '*Shockwave*.pkg')
 SLVRPKG=$(find "$SLVR" -name '*Silverlight*.pkg')
 JAVAPKG=$(find "$JAVA" -name '*Java*.pkg')
@@ -102,5 +117,12 @@ sleep 1
 echo "Installers are unmounted.\n"
 rm -rf ~/postprep_temp
 sleep 1
-echo "Postprep Mac has completed."
-exit 0
+
+#Before completing check if there we updated versions of software."
+if [ "$updateVer" = true ] ; then
+	echo "New software versions were found, and installed."
+	echo "However, PostprepMac needs to be updated to reflect future updates. \n"
+	echo "Contact Lucas Messenger to update script, or visit https://github.com/lmessenger/PostprepMac \n"
+fi
+echo "PostprepMac has completed."
+exit
