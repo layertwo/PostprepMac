@@ -2,9 +2,9 @@
 # ----------------------------------------------
 # Script is designed to be Postprep equivalent on Mac.
 # author: Lucas Messenger
-# version: 0.1.2
+# version: 0.1.2.1
 # created: 02_24_2014
-# modified: 04_09_2014
+# modified: 04_16_2014
 #
 #
 # Notes:
@@ -42,7 +42,7 @@ curl --progress-bar -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebK
 echo "(6/7) Downloading Mozilla Firefox..."
 curl --progress-bar -L -o Firefox.dmg "http://download.mozilla.org/?product=firefox-latest&os=osx&lang=en-US"
 echo "(7/7) Downloading Java..."
-curl --progress-bar -L -o Java.dmg "http://javadl.sun.com/webapps/download/AutoDL?BundleId=83377"
+curl --progress-bar -L -o Java.dmg "http://javadl.sun.com/webapps/download/AutoDL?BundleId=87438"
 sleep 1
 echo "Installers downloaded.\n"
 sleep 1
